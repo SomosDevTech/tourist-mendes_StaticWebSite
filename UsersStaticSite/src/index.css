@@ -4,39 +4,39 @@
 
 @layer components {
   .text-h1 {
-    @apply font-inter text-3xl font-bold leading-6;
+    @apply text-black dark:text-white font-inter text-3xl font-bold leading-6;
   }
 
   .text-h2 {
-    @apply font-inter text-2xl font-bold leading-6;
+    @apply text-black dark:text-white font-inter text-2xl font-bold leading-6;
   }
 
   .text-h3 {
-    @apply font-inter text-xl font-bold leading-7;
+    @apply text-black dark:text-white font-inter text-xl font-bold leading-7;
   }
 
   .text-h4 {
-    @apply font-inter text-base font-bold leading-7;
+    @apply text-black dark:text-white font-inter text-base font-bold leading-7;
   }
 
   .text-h5 {
-    @apply font-inter text-sm font-bold leading-7;
+    @apply text-black dark:text-white font-inter text-sm font-bold leading-7;
   }
 
   .text-h6 {
-    @apply font-inter text-xs font-bold leading-7;
+    @apply text-black dark:text-white font-inter text-xs font-bold leading-7;
   }
 
   .body-level-1 {
-    @apply font-inter text-base font-bold leading-7;
+    @apply text-black dark:text-white font-inter text-base font-bold leading-7;
   }
 
   .body-level-2 {
-    @apply font-inter text-sm font-bold leading-7;
+    @apply text-black dark:text-white font-inter text-sm font-bold leading-7;
   }
 
   .button-primary {
-    @apply w-[157px] h-[44px] rounded-full bg-primary border-2 border-transparent text-white hover:bg-primaryDark active:bg-primaryActive active:border-secondary dark:bg-secondary dark:hover:bg-secondaryDark dark:active:bg-secondaryActive transition-all duration-300;
+    @apply w-[157px] h-[44px] rounded-full bg-primary border-2 border-transparent text-white dark:text-black hover:bg-primaryDark active:bg-primaryActive active:border-secondary dark:bg-secondary dark:hover:bg-secondaryDark dark:active:bg-secondaryActive transition-all duration-300;
   }
 
   .button-secondary {

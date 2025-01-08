@@ -1,6 +1,6 @@
 import React from 'react';
-import ButtonCustom from '../ButtonCustom/ButtonCustom';
-import { AtracaoLocalHomeCard } from '../../shared-lib/typesHomePage';
+import ButtonCustom from '../../ButtonCustom/ButtonCustom';
+import { AtracaoLocalHomeCard } from '../../../shared-lib/typesHomePage';
 
 
 function AttractionCard({ imageData, linkUrl, title, shortDescription }: AtracaoLocalHomeCard): React.ReactNode {
@@ -14,10 +14,11 @@ function AttractionCard({ imageData, linkUrl, title, shortDescription }: Atracao
         alt={imageData.altDescription}
         className="w-full h-full object-cover rounded-2xl brightness-50 lg:brightness-75 lg:group-hover:brightness-50 transition duration-300"
       />
+      
       <div className="flex flex-col w-52 absolute bottom-10 left-6 gap-5">
-        <h3 className="text-h3 text-white">
+        <h2 className="text-h2 text-white">
           {title}
-        </h3>
+        </h2>
         <span className="text-level-1 text-white font-extralight flex lg:hidden lg:group-hover:flex transition duration-300">
           {shortDescription}
         </span>
@@ -28,6 +29,7 @@ function AttractionCard({ imageData, linkUrl, title, shortDescription }: Atracao
           link={linkUrl}
         />
       </div>
+      
     </article>
   );
 }

@@ -7,11 +7,12 @@ interface CarouselProps {
 
 const Carousel: React.FC<CarouselProps> = ({
   children,
+  className = '',
 }) => {
   return (
-    <div className={`w-full overflow-hidden flex justify-start lg:justify-center items-center px-auto`}>
+    <section className={`w-full xl:w-fit overflow-hidden flex justify-start lg:justify-between items-center ${className}`}>
       <div
-        className="flex w-full 2xl:w-4/5 lg:flex-wrap gap-4 justify-start lg:justify-center overflow-x-auto overflow-y-hidden snap-x snap-mandatory lg:snap-none touch-pan no-scrollbar"
+        className={`flex w-full xl:w-fit xl:flex-wrap gap-4 justify-start lg:justify-between overflow-x-auto overflow-y-hidden snap-x snap-mandatory lg:snap-none touch-pan no-scrollbar ${className}`}
         style={{
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
@@ -27,7 +28,7 @@ const Carousel: React.FC<CarouselProps> = ({
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

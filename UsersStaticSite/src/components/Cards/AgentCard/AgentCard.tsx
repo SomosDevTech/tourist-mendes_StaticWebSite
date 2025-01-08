@@ -1,5 +1,5 @@
 import React from 'react';
-import { AgenteCulturalHomeCard } from '../../shared-lib/typesHomePage';
+import { AgenteCulturalHomeCard } from '../../../shared-lib/typesHomePage';
 
 function AgentCard({ name, shortDescription, linkUrl, imageData, }: AgenteCulturalHomeCard): React.ReactNode {
   return (
@@ -14,9 +14,9 @@ function AgentCard({ name, shortDescription, linkUrl, imageData, }: AgenteCultur
           className="w-full h-full object-cover rounded-2xl brightness-50 lg:brightness-75 lg:group-hover:brightness-50 transition duration-300"
         />
         <div className="flex flex-col w-52 absolute bottom-10 left-6 gap-5">
-          <h3 className="text-h3 text-white">
+          <h2 className="text-h2 text-white">
             {name}
-          </h3>
+          </h2>
           <span className="text-level-1 text-white font-extralight flex lg:hidden lg:group-hover:flex transition duration-300">
             {shortDescription}
           </span>

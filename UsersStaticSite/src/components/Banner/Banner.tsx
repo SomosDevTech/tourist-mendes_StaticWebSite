@@ -1,26 +1,33 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { HomeBanner } from '../../shared-lib/typesHomePage';
+import { useQuery } from '@tanstack/react-query';
+import BannerSkeleton from '../Skeletons/BannerSkeleton.tsx';
+import { getBanners } from '../../api/banners/index.ts';
+import { ApiResponse } from '../../api/types.ts';
 
-interface BannerCarouselProps {
-  banners: HomeBanner[];
-}
-
-const BannerCarousel: React.FC<BannerCarouselProps> = ({ banners }) => {
+const BannerCarousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const { data: bannerResponse, isLoading, isError } = useQuery<ApiResponse<HomeBanner[]>>({
+    queryKey: ['banners'],
+    queryFn: getBanners,
+  });
+
+  const banners = useMemo(() => bannerResponse?.data || [], [bannerResponse?.data]);
 
   useEffect(() => {
     let intervalId: NodeJS.Timeout;
     if (isAutoPlaying) {
       intervalId = setInterval(() => {
-        const nextIndex = (currentIndex + 1) % banners.length;
+        const nextIndex = (currentIndex + 1) % (banners?.length || 1);
         scrollToIndex(nextIndex);
       }, 3000);
     }
     return () => clearInterval(intervalId);
-  }, [isAutoPlaying, currentIndex, banners.length]);
+  }, [isAutoPlaying, currentIndex, banners]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -45,6 +52,27 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({ banners }) => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+
+    const handleScroll = () => {
+      if (!container) return;
+
+      const slideWidth = container.offsetWidth;
+      const scrollLeft = container.scrollLeft;
+      const newIndex = Math.round(scrollLeft / slideWidth);
+
+      setCurrentIndex(newIndex);
+    };
+
+    container?.addEventListener('scroll', handleScroll);
+
+    return () => {
+      container?.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+
   const scrollToIndex = (index: number): void => {
     const container = scrollContainerRef.current;
     if (!container) return;
@@ -56,6 +84,9 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({ banners }) => {
     });
     setCurrentIndex(index);
   };
+
+  if (isLoading) return <BannerSkeleton />
+  if (isError) return <div className="text-h1 text-black self-center">Erro ao carregar banners.</div>;
 
   return (
     <section
@@ -73,7 +104,7 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({ banners }) => {
           WebkitOverflowScrolling: 'touch',
         }}
       >
-        {banners.map((banner, index) => (
+        {banners?.map((banner: HomeBanner, index: number) => (
           <div
             key={index}
             data-index={index}
@@ -101,27 +132,29 @@ const BannerCarousel: React.FC<BannerCarouselProps> = ({ banners }) => {
       </div>
 
       <button
-        onClick={() => scrollToIndex((currentIndex - 1 + banners.length) % banners.length)}
+        onClick={() => scrollToIndex((currentIndex - 1 + banners!.length) % banners!.length)}
         className="absolute hidden md:flex left-4 top-1/2 -translate-y-1/2 bg-white hover:bg-grey text-white rounded-full p-2 transition-colors"
         aria-label="Banner anterior"
+        tabIndex={-1}
       >
         <ChevronLeft className="w-6 lg:w-10 h-6 lg:h-10 text-black" />
       </button>
       <button
-        onClick={() => scrollToIndex((currentIndex + 1) % banners.length)}
+        onClick={() => scrollToIndex((currentIndex + 1) % banners!.length)}
         className="absolute hidden md:flex right-4 top-1/2 -translate-y-1/2 bg-white hover:bg-grey text-white rounded-full p-2 transition-colors"
         aria-label="Próximo banner"
+        tabIndex={-1}
       >
         <ChevronRight className="w-6 lg:w-10 h-6 lg:h-10 text-black" />
       </button>
 
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-        {banners.map((_, index) => (
+        {banners?.map((_, index) => (
           <button
             key={index}
             onClick={() => scrollToIndex(index)}
-            aria-label={`Go to slide ${index + 1}`}
-            className={`w-3 h-3 rounded-full transition-colors ${currentIndex === index ? 'scale-125 bg-primary dark:bg-seconary' : 'scale-75 bg-white'
+            aria-label={`Ir para banner ${index + 1}`}
+            className={`w-3 h-3 rounded-full transition-colors ${currentIndex === index ? 'scale-125 bg-primary dark:bg-secondary' : 'scale-75 bg-white'
               }`}
           />
         ))}

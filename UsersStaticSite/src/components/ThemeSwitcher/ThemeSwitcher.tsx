@@ -48,7 +48,7 @@ const ThemeSwitcher = () => {
         aria-label="Trocar tema"
       >
         {isMobileOrTablet ? (
-          <span className="text-h4">Mudar o tema</span>
+          <span className="text-h4 text-white">Mudar o tema</span>
         ) : isDarkMode ? (
           <Moon className="w-5 h-5 text-white " />
         ) : (

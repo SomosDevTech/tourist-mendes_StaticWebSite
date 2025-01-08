@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
 import AsideMenu from '../AsideMenu/AsideMenu';
+import { Menu, X } from 'lucide-react';
 
 function Header(): React.ReactNode {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,11 +28,13 @@ function Header(): React.ReactNode {
 
   return (
     <header className="flex w-full gap-4 items-center justify-between bg-primary h-20 px-4 md:px-8 xl:px-[150px]" >
-      <img
-        src="./src/assets/logos/TurisMendes.svg"
-        alt="TurisMendes Logo"
-        className='w-[105px] h-[60px] mb-5'
-      />
+      <a href="/">
+        <img
+          src="./src/assets/logos/TurisMendes.png"
+          alt="TurisMendes Logo"
+          className='w-[105px] h-[60px] mb-5'
+        />
+      </a>
       <nav className="p-6 hidden lg:flex">
         <ul className="flex gap-6">
           {menuItems.map((item) => (
@@ -63,17 +66,13 @@ function Header(): React.ReactNode {
         aria-controls="mobile-menu"
       >
         {isMenuOpen ? (
-          <img src="./src/assets/icons/Close.svg" alt="Fechar menu" className="w-6 h-6" />
+          <X className='text-white' aria-label='Fechar menu' />
         ) : (
-          <img
-            src="./src/assets/icons/Menu-burguer.svg"
-            alt="Abrir menu"
-            className="w-6 h-6"
-          />
+          <Menu className='text-white' aria-label='Abrir menu' />
         )}
       </button>
 
-      <AsideMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} menuItems={menuItems}  />
+      <AsideMenu isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} menuItems={menuItems} />
     </header>
   );
 }
