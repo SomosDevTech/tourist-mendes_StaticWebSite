@@ -6,13 +6,13 @@ import TrailSkeleton from '../../../Skeletons/TrailSkeleton.tsx';
 import TrailCard from '../../../Cards/TrailCard/TrailCard.tsx';
 import { FetchError } from '../../../Errors/FetchError.tsx';
 import { ResponseDTO, TrilhasHomeCard } from '../../../../shared-lib/typesHomePage.ts';
-import { getTrails } from '../../../../api/trails/getTrails.ts';
+import { getTrilhas } from '../../../../api/getTrilhas/getTrilhas.ts';
 
 function TrailsSection(): React.ReactNode {
 
   const { data: responseTrilhasDTO, isLoading, isError, refetch } = useQuery<ResponseDTO<TrilhasHomeCard[]>>({
     queryKey: ['trails'],
-    queryFn: getTrails,
+    queryFn: getTrilhas,
   });
 
   return (

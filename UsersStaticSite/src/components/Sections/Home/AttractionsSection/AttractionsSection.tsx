@@ -5,13 +5,13 @@ import ButtonCustom from '../../../ButtonCustom/ButtonCustom.tsx';
 import { useQuery } from '@tanstack/react-query';
 import CardSkeleton from '../../../Skeletons/CardSkeleton.tsx';
 import { FetchError } from '../../../Errors/FetchError.tsx';
-import { getAttractions } from '../../../../api/attractions/getAttractions.ts';
+import { getAtracoes } from '../../../../api/getAtracoes/getAtracoes.ts';
 import { AtracaoLocalHomeCard, ResponseDTO } from '../../../../shared-lib/typesHomePage.ts';
 
 function AttractionsSection(): React.ReactNode {
   const { data: responseAtracaoDTO, isLoading, isError, refetch } = useQuery<ResponseDTO<AtracaoLocalHomeCard[]>>({
     queryKey: ['attractions'],
-    queryFn: getAttractions,
+    queryFn: getAtracoes,
   });
 
   return (

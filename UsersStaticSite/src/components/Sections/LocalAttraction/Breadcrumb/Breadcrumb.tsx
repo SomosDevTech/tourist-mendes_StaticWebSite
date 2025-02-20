@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { ChevronRight, EllipsisVertical } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from "react";
+import { ChevronRight, EllipsisVertical } from "lucide-react";
+import { Link } from "react-router-dom";
 
 type SegmentMap = {
   [key: string]: string;
@@ -17,19 +17,19 @@ const Breadcrumb = ({
   resolveSegment,
   segmentMap = {},
   idSegments = [],
-  title
+  title,
 }: BreadcrumbProps) => {
-  const [resolvedSegments, setResolvedSegments] = useState<{ [key: string]: string }>({});
-  const [isLoading, setIsLoading] = useState(false);
+  const [resolvedSegments, setResolvedSegments] = useState<{
+    [key: string]: string;
+  }>({});
 
   const pathname = window.location.pathname;
-  const pathSegments = pathname.split('/').filter(segment => segment !== '');
+  const pathSegments = pathname.split("/").filter((segment) => segment !== "");
 
   useEffect(() => {
     const resolveSegments = async () => {
       if (!resolveSegment) return;
 
-      setIsLoading(true);
       const resolved: { [key: string]: string } = {};
 
       try {
@@ -44,10 +44,8 @@ const Breadcrumb = ({
 
         setResolvedSegments(resolved);
       } catch (error) {
-        console.error('Error resolving segments:', error);
+        console.error("Error resolving segments:", error);
       }
-
-      setIsLoading(false);
     };
 
     resolveSegments();
@@ -63,32 +61,36 @@ const Breadcrumb = ({
     }
 
     return decodeURIComponent(segment)
-      .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+      .split("-")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
   };
 
   const breadcrumbItems = pathSegments.map((segment, index) => {
-    const path = '/' + pathSegments.slice(0, index + 1).join('/');
+    const path = "/" + pathSegments.slice(0, index + 1).join("/");
     const label = getSegmentLabel(segment, index);
     return { path, label };
   });
 
-  if (isLoading) {
-    return <div className="animate-pulse h-6 bg-gray-200 rounded w-48" />;
-  }
-
   return (
-    <nav aria-label="Breadcrumb" className='flex items-center justify-start mt-4 w-[94%] h-8 pl-4 md:pl-0 md:max-w-[770px] md:mx-auto lg:w-full lg:max-w-[944px] xl:max-w-[1140px]'>
+    <nav
+      aria-label="Breadcrumb"
+      className="flex items-center justify-start mt-4 w-[94%] h-8 pl-4 md:pl-8 md:max-w-[770px] lg:pl-0 lg:mx-auto lg:w-full lg:max-w-[944px] xl:max-w-[1140px]"
+    >
       <ol className="flex items-center justify-center gap-1 flex-wrap">
         <li className="flex items-center">
           <Link to="/" className="flex items-center">
-            <span className="text-level-2 font-medium leading-6 text-gray-500 dark:text-white">Home</span>
+            <span className="text-level-2 underline underline-offset-2 font-medium leading-6 text-gray-500 hover:text-primary transition-all duration-300 dark:text-white dark:hover:text-secondary">
+              Home
+            </span>
           </Link>
         </li>
 
         {breadcrumbItems.map((item, index) => (
-          <li key={item.path} className="flex items-center justify-center gap-1">
+          <li
+            key={item.path}
+            className="flex items-center justify-center gap-1"
+          >
             {index > breadcrumbItems.length - 1 && (
               <ChevronRight className="h-4 w-4 text-gray-400 flex-shrink-0" />
             )}
@@ -100,7 +102,10 @@ const Breadcrumb = ({
                   <ul className="p-2">
                     {breadcrumbItems.slice(0, 1).map((pathItem, i) => (
                       <li key={i}>
-                        <Link to={pathItem.path} className="capitalize text-level-2 bg-primary hover:bg-primaryDark dark:bg-secondary dark:hover:bg-secondaryDark rounded-md text-white dark:text-black block py-1 px-2">
+                        <Link
+                          to={pathItem.path}
+                          className="capitalize text-level-2 bg-primary hover:bg-primaryDark dark:bg-secondary dark:hover:bg-secondaryDark rounded-md text-white dark:text-black block py-1 px-2"
+                        >
                           {pathItem.label.toString()}
                         </Link>
                       </li>
@@ -115,7 +120,10 @@ const Breadcrumb = ({
             )}
 
             {index === breadcrumbItems.length - 1 && (
-              <span className="text-level-2 text-primary dark:text-white font-bold underline underline-offset-2" aria-current="page">
+              <span
+                className="text-level-2 text-primary dark:text-white font-bold"
+                aria-current="page"
+              >
                 {title}
               </span>
             )}

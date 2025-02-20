@@ -48,7 +48,7 @@
   }
 
   .button-large {
-    @apply w-fit px-4;
+    @apply w-[207px];
   }
 
   .trail-tag-facil {
@@ -71,4 +71,17 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+
+  #map {
+    height: 50vh;
+    width: 100%;
+  }
+  
+  .leaflet-container {
+    height: 100%;
+    width: 100%;
+  }
+}
+.loading-spinner {
+  border-color: #ffffff !important;
 }

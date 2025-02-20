@@ -3,15 +3,15 @@ import Carousel from '../../../Carousel/Carousel.tsx';
 import ButtonCustom from '../../../ButtonCustom/ButtonCustom.tsx';
 import { useQuery } from '@tanstack/react-query';
 import EventCard from '../../../Cards/EventCard/EventCard.tsx';
-import EventSkeleton from '../../../Skeletons/EventSkeleton.tsx';
+import EventoPageSkeleton from '../../../../pages/EventoPage/EventoPageSkeleton.tsx';
 import { FetchError } from '../../../Errors/FetchError.tsx';
-import { getEvents } from '../../../../api/events/getEvents.ts';
+import { getEventos } from '../../../../api/getEventos/getEventos.ts';
 
 function EventsSection(): React.ReactNode {
 
   const { data: responseEventsDTO, isLoading, isError, refetch } = useQuery({
     queryKey: ['events'],
-    queryFn: getEvents,
+    queryFn: getEventos,
   });
 
   return (
@@ -30,7 +30,7 @@ function EventsSection(): React.ReactNode {
                 .fill(0)
                 .map((_, index) => (
                   <div key={index} className="flex-shrink-0 pl-4">
-                    <EventSkeleton />
+                    <EventoPageSkeleton />
                   </div>
                 ))
               : responseEventsDTO?.data?.map((event, index) => (

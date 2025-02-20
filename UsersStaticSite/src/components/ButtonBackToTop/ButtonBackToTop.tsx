@@ -37,9 +37,10 @@ function ButtonBackToTop(): React.ReactNode {
     <>
       {isVisible && (
         <motion.button
+          aria-label='Voltar ao topo'
           onClick={scrollToTop}
-          className={`group fixed flex items-center justify-center ${isAtBottom ? "bottom-[270px] right-10" : "bottom-10 right-6"
-            } text-white bg-primaryDark hover:bg-primary dark:bg-secondaryDark rounded-full transition-colors z-30`}
+          className={`group fixed flex items-center justify-center ${isAtBottom ? "bottom-[270px] right-3 md:bottom-[230px] md:right-5 xl:bottom-[170px] xl:right-10" : "bottom-6 right-6"
+            } text-white bg-primaryDark hover:bg-primaryDark dark:bg-secondaryDark rounded-full transition-colors z-30`}
           initial={{ width: "56px", height: "56px" }}
           whileHover={{ width: "160px" }}
           transition={{ duration: 0.1, ease: "linear" }}

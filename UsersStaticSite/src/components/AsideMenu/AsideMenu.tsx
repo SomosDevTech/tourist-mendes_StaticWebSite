@@ -25,7 +25,7 @@ function AsideMenu({ isOpen, onClose, menuItems }: AsideMenuProps): React.ReactN
           ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
     >
       <img
-        src="../src/assets/logos/TurisMendes.svg"
+        src="/logos/TurisMendes.svg"
         alt="TurisMendes Logo"
         className='w-[105px] h-[60px] mb-5'
       />

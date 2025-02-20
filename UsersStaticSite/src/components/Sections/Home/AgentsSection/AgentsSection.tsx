@@ -6,13 +6,13 @@ import AgentCard from '../../../Cards/AgentCard/AgentCard.tsx';
 import AgentSkeleton from '../../../Skeletons/AgentSkeleton.tsx';
 import { FetchError } from '../../../Errors/FetchError.tsx';
 import { AgenteCulturalHomeCard, ResponseDTO } from '../../../../shared-lib/typesHomePage.ts';
-import { getAgents } from '../../../../api/agents/getAgents.ts';
+import { getAgentes } from '../../../../api/getAgentes/getAgentes.ts';
 
 function AgentsSection(): React.ReactNode {
 
   const { data: responseAgenteDTO, isLoading, isError, refetch } = useQuery<ResponseDTO<AgenteCulturalHomeCard[]>>({
     queryKey: ['agents'],
-    queryFn: getAgents,
+    queryFn: getAgentes,
   });
 
 
